@@ -7,7 +7,7 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, setUpdate, update}) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -22,7 +22,7 @@ const ColorList = ({ colors, updateColors }) => {
     console.log(colorToEdit);
     axiosWithAuth().put(`/colors/${colorToEdit.id}`, {...colorToEdit})
     .then(res=> {
-      
+        setUpdate(!update);
     })
     .catch(er => {
       console.log(er);
@@ -35,6 +35,7 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth().delete(`/colors/${color.id}`)
     .then(res => {
       console.log('delete');
+      setUpdate(!update);
     })
     .catch(er => {
       console.log(er);
